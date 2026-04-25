@@ -1,0 +1,54 @@
+# Compiled files
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dll
+*.dylib
+*.exe
+*.out
+*.app
+
+# Build directories
+build/
+bin/
+out/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# IDE / Editor
+.vscode/
+.idea/
+*.xcodeproj/
+*.xcworkspace/
+*.suo
+*.user
+*.sln.docobj
+
+# macOS
+.DS_Store
+.AppleDouble
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# Qt (GUI)
+*.pro.user
+moc_*.cpp
+ui_*.h
+qrc_*.cpp
+*.qm
+*.autosave
+
+# GTK / other GUI build artifacts
+*.glade~
+
+# Temp / logs
+*.log
+*.tmp
+*.bak
