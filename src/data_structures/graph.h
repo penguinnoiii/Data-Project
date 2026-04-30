@@ -25,6 +25,7 @@ struct Graph {
 Graph* createGraph();
 void addLocation(Graph* g, const char* name);
 void addPath(Graph* g, const char* src, const char* dest, int weight);
+bool loadGraphFromFile(Graph* g, const char* filename);
 void deleteLocation(Graph* g, const char* name);
 void deletePath(Graph* g, const char* src, const char* dest);
 void displayGraph(Graph* g);

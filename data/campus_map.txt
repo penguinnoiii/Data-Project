@@ -1,0 +1,13 @@
+[Locations]
+Main Gate
+Library
+Engineering Building
+Cafeteria
+Dormitory
+
+[Paths]
+Main Gate|Library|4
+Library|Engineering Building|3
+Library|Cafeteria|2
+Engineering Building|Dormitory|6
+Cafeteria|Dormitory|5
