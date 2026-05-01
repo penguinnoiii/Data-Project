@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstring>
 #include <fstream>
+#include <sstream>
 #include <string>
 #include "graph.h"
 
@@ -14,7 +15,7 @@ Graph* createGraph() {
 Node* findNode(Graph* g, const char* name) {
     Node* curr = g->head;
     while (curr) {
-        if (strcmp(curr->name, name) == 0) return curr;
+        if (strcmp(curr->name, name) == 0 || strcmp(curr->code, name) == 0) return curr;
         curr = curr->next;
     }
     return nullptr;
@@ -27,12 +28,41 @@ void addLocation(Graph* g, const char* name) {
     }
     Node* newNode = new Node;
     newNode->id = g->nodeCount++;
+    strncpy(newNode->code, name, MAX_CODE);
+    newNode->code[MAX_CODE - 1] = '\0';
     strncpy(newNode->name, name, MAX_NAME);
     newNode->name[MAX_NAME - 1] = '\0';
+    newNode->imageX = 0;
+    newNode->imageY = 0;
+    newNode->hasImagePosition = false;
+    strncpy(newNode->type, "location", MAX_TYPE);
+    newNode->type[MAX_TYPE - 1] = '\0';
     newNode->edges = nullptr;
     newNode->next = g->head;
     g->head = newNode;
     std::cout << "Added location: " << name << "\n";
+}
+
+void addLocationWithPosition(Graph* g, const char* code, const char* name, int imageX, int imageY, const char* type) {
+    if (findNode(g, code) || findNode(g, name)) {
+        std::cout << "Location '" << code << "' already exists.\n";
+        return;
+    }
+    Node* newNode = new Node;
+    newNode->id = g->nodeCount++;
+    strncpy(newNode->code, code, MAX_CODE);
+    newNode->code[MAX_CODE - 1] = '\0';
+    strncpy(newNode->name, name, MAX_NAME);
+    newNode->name[MAX_NAME - 1] = '\0';
+    newNode->imageX = imageX;
+    newNode->imageY = imageY;
+    newNode->hasImagePosition = true;
+    strncpy(newNode->type, type, MAX_TYPE);
+    newNode->type[MAX_TYPE - 1] = '\0';
+    newNode->edges = nullptr;
+    newNode->next = g->head;
+    g->head = newNode;
+    std::cout << "Added location: " << code << " - " << name << "\n";
 }
 
 void addPath(Graph* g, const char* src, const char* dest, int weight) {
@@ -70,7 +100,8 @@ bool loadGraphFromFile(Graph* g, const char* filename) {
     enum Section {
         NONE,
         LOCATIONS,
-        PATHS
+        PATHS,
+        MAP_IMAGE
     };
 
     Section section = NONE;
@@ -85,6 +116,11 @@ bool loadGraphFromFile(Graph* g, const char* filename) {
             continue;
         }
 
+        if (line == "[MapImage]") {
+            section = MAP_IMAGE;
+            continue;
+        }
+
         if (line == "[Locations]") {
             section = LOCATIONS;
             continue;
@@ -95,8 +131,34 @@ bool loadGraphFromFile(Graph* g, const char* filename) {
             continue;
         }
 
+        if (section == MAP_IMAGE) {
+            continue;
+        }
+
         if (section == LOCATIONS) {
-            addLocation(g, line.c_str());
+            if (line.find('|') == std::string::npos) {
+                addLocation(g, line.c_str());
+                continue;
+            }
+
+            std::stringstream parser(line);
+            std::string code;
+            std::string name;
+            std::string imageXText;
+            std::string imageYText;
+            std::string type;
+            std::getline(parser, code, '|');
+            std::getline(parser, name, '|');
+            std::getline(parser, imageXText, '|');
+            std::getline(parser, imageYText, '|');
+            std::getline(parser, type, '|');
+
+            try {
+                addLocationWithPosition(g, code.c_str(), name.c_str(), std::stoi(imageXText),
+                                        std::stoi(imageYText), type.empty() ? "location" : type.c_str());
+            } catch (...) {
+                std::cout << "Skipped invalid location entry: " << line << "\n";
+            }
             continue;
         }
 
@@ -126,22 +188,88 @@ bool loadGraphFromFile(Graph* g, const char* filename) {
 }
 
 void deleteLocation(Graph* g, const char* name) {
-    // TODO (Member 1): Remove node and all edges connected to it
-    // Steps:
-    // 1. Find node to delete
-    // 2. Remove all edges pointing TO this node from other nodes
-    // 3. Remove the node itself from the linked list
-    // 4. Free memory
-    std::cout << "TODO: deleteLocation\n";
+    Node* target = findNode(g, name);
+    if (!target) {
+        std::cout << "Location not found.\n";
+        return;
+    }
+
+    int deletedId = target->id;
+
+    for (Node* curr = g->head; curr; curr = curr->next) {
+        Edge** edge = &curr->edges;
+        while (*edge) {
+            if ((*edge)->dest == deletedId) {
+                Edge* removed = *edge;
+                *edge = (*edge)->next;
+                delete removed;
+            } else {
+                if ((*edge)->dest > deletedId) {
+                    (*edge)->dest--;
+                }
+                edge = &((*edge)->next);
+            }
+        }
+    }
+
+    Node** curr = &g->head;
+    while (*curr && *curr != target) {
+        curr = &((*curr)->next);
+    }
+    if (*curr) {
+        *curr = target->next;
+    }
+
+    Edge* edge = target->edges;
+    while (edge) {
+        Edge* removed = edge;
+        edge = edge->next;
+        delete removed;
+    }
+    delete target;
+
+    for (Node* currNode = g->head; currNode; currNode = currNode->next) {
+        if (currNode->id > deletedId) {
+            currNode->id--;
+        }
+    }
+    g->nodeCount--;
+
+    std::cout << "Deleted location: " << name << "\n";
 }
 
 void deletePath(Graph* g, const char* src, const char* dest) {
-    // TODO (Member 1): Remove edge between src and dest (both directions)
-    // Steps:
-    // 1. Find srcNode, remove edge pointing to dest
-    // 2. Find destNode, remove edge pointing to src
-    // 3. Free edge memory
-    std::cout << "TODO: deletePath\n";
+    Node* srcNode = findNode(g, src);
+    Node* destNode = findNode(g, dest);
+    if (!srcNode || !destNode) {
+        std::cout << "Location not found.\n";
+        return;
+    }
+
+    auto removeEdge = [](Node* node, int destId) {
+        bool removedAny = false;
+        Edge** edge = &node->edges;
+        while (*edge) {
+            if ((*edge)->dest == destId) {
+                Edge* removed = *edge;
+                *edge = (*edge)->next;
+                delete removed;
+                removedAny = true;
+            } else {
+                edge = &((*edge)->next);
+            }
+        }
+        return removedAny;
+    };
+
+    bool removed = removeEdge(srcNode, destNode->id);
+    removed = removeEdge(destNode, srcNode->id) || removed;
+
+    if (removed) {
+        std::cout << "Deleted path: " << src << " <-> " << dest << "\n";
+    } else {
+        std::cout << "Path not found.\n";
+    }
 }
 
 void displayGraph(Graph* g) {
@@ -152,7 +280,7 @@ void displayGraph(Graph* g) {
     std::cout << "\n=== Campus Map ===\n";
     Node* curr = g->head;
     while (curr) {
-        std::cout << "[" << curr->name << "]";
+        std::cout << "[" << curr->code << " " << curr->name << "]";
         Edge* e = curr->edges;
         while (e) {
             // Find node name by id

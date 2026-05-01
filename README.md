@@ -23,14 +23,24 @@
 
 ## How to Build & Run
 
+Install Raylib first:
+
+```bash
+brew install raylib pkg-config
+```
+
 ```bash
 make
 make run
 ```
 
+The Raylib map uses `assets/Masterplan  KMUTT.jpg` as the background. Node
+positions in `data/campus_map.txt` are original image pixel coordinates, and
+path weights are approximate meters derived from the map scale bar.
+
 Or manually:
 ```bash
-g++ -Wall -std=c++17 -o build/program src/*.cpp src/data_structures/*.cpp
+g++ -Wall -std=c++17 -Isrc -o build/program src/*.cpp src/data_structures/*.cpp -lraylib
 ./build/program
 ```
 

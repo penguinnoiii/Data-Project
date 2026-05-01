@@ -1,13 +1,264 @@
+[MapImage]
+image=assets/Masterplan  KMUTT.jpg
+width=4929
+height=3374
+crop_x=1400
+crop_y=650
+crop_w=3250
+crop_h=2600
+scale_pixels=409
+scale_meters=100
+
 [Locations]
-Main Gate
-Library
-Engineering Building
-Cafeteria
-Dormitory
+N1|Welcome Center Building|2910|2410|building
+N2|Office of the President Building|3100|2430|building
+N3|Department of Chemistry Building|3360|2460|building
+N4|Department of Physics-Mathematics Building|3385|2250|building
+N5|Scientific Instrument Center Building|3630|2200|building
+N6|Department of Microbiology Building|3820|2240|building
+N7|Fundamental Science Laboratory Building|3820|2520|building
+N8|Water Pump Station|4030|2680|building
+N9|Institute of Field Robotics Building|4360|2170|building
+N10|KMUTT Library Building|3760|2090|building
+N11|School of Information Technology Building|3540|1900|building
+N12|Utility Exchange Building|3400|1620|building
+N13|Workshop and Greenhouse Building|3300|1500|building
+N14|Hi-Voltage Building|3150|1450|building
+N15|School of Liberal Arts Building|3320|1690|building
+N16|Learning Exchange Building|3130|2050|building
+N17|Classroom Building 2|3180|1880|building
+N18|Production Engineering Laboratory Building 4|2910|1900|building
+N19|Production Engineering Laboratory Building 5|2820|1740|building
+N20|Classroom Building 1|2960|1630|building
+S1|Car Parking Building|2540|2500|building
+S2|Dhammaraksa Residence Hall 2|2460|2750|building
+S3|Innovation Learning Institute Building|2320|2480|building
+S4|Engineering Building|2350|2090|building
+S5|Dhammaraksa Residence Hall 2 Annex|2090|2230|building
+S6|Dhammaraksa Residence Hall 1|1900|2280|building
+S7|KMUTT Child Development Building|1970|2100|building
+S8|Materials Technology Research Building|1900|1940|building
+S9|School of Energy Environment and Materials Building|1950|1750|building
+S10|KMUTT Green Society Building|2140|1880|building
+S11|Classroom Building 5|2260|1810|building
+S12|Classroom Building 4|2180|1450|building
+S13|Classroom Building 3|2350|1120|building
+S14|King Mongkut 190th Anniversary Memorial Building|2730|1060|building
+S15|Department of Chemical Engineering Building|2540|1740|building
+G1|Gate 1 Pracha Uthit Road|2830|3140|gate
+G2|Gate 2|1740|1630|gate
+G3|Gate 3|1880|1490|gate
+G4|Gate 4|2380|880|gate
+FC1|Food Center near S11|2210|1690|food
+FC2|Food Center near N10|3670|2140|food
+HC1|Health Care Unit|2870|2110|health
+BOOK|KMUTT Book Store|2630|2750|shop
+USTORE|U Store Shop|2470|2710|shop
+SEV1|7-Eleven near S15|2500|1810|shop
+SEV2|7-Eleven near S6|1850|2290|shop
+MON|King Mongkut Monument|2950|2920|landmark
+PARK|Commemoration Park|2730|2740|park
+HERO|Pavilion of Hero|3090|2340|landmark
+POST|Post Office|3890|1510|service
+COFFEE|Coffee Shop|3670|2080|food
+CP1|Car Park West|2050|1460|parking
+CP2|Car Park S8|2030|2000|parking
+CP3|Car Park Engineering|2420|2220|parking
+CP4|Car Park N2|3070|2350|parking
+CP5|Car Park N11|3530|1830|parking
+CP6|Car Park N10|3670|2170|parking
+CP7|Car Park N9|4190|2180|parking
+CP8|Car Park Gate 3|2030|1520|parking
 
 [Paths]
-Main Gate|Library|4
-Library|Engineering Building|3
-Library|Cafeteria|2
-Engineering Building|Dormitory|6
-Cafeteria|Dormitory|5
+BOOK|G1|107
+BOOK|MON|89
+BOOK|PARK|25
+BOOK|S1|65
+BOOK|S2|42
+BOOK|USTORE|40
+COFFEE|CP5|70
+COFFEE|CP6|22
+COFFEE|FC2|15
+COFFEE|N10|22
+COFFEE|N11|54
+COFFEE|N5|31
+COFFEE|N6|54
+CP1|CP8|15
+CP1|FC1|69
+CP1|G2|86
+CP1|G3|42
+CP1|G4|163
+CP1|S12|32
+CP1|S13|111
+CP1|S9|75
+CP2|S10|40
+CP2|S5|58
+CP2|S6|75
+CP2|S7|29
+CP2|S8|35
+CP2|S9|64
+CP2|SEV2|83
+CP3|S1|74
+CP3|S3|68
+CP3|S4|36
+CP3|S5|81
+CP3|SEV1|102
+CP4|HC1|76
+CP4|HERO|5
+CP4|N1|42
+CP4|N16|75
+CP4|N2|21
+CP4|N3|76
+CP5|FC2|83
+CP5|N11|17
+CP5|N12|60
+CP5|N15|62
+CP5|POST|118
+CP6|CP7|127
+CP6|FC2|7
+CP6|N10|29
+CP6|N11|73
+CP6|N4|72
+CP6|N5|12
+CP6|N6|40
+CP6|N7|93
+CP6|N8|153
+CP7|N10|107
+CP7|N6|92
+CP7|N7|123
+CP7|N8|128
+CP7|N9|42
+CP8|FC1|61
+CP8|G2|76
+CP8|G3|37
+CP8|G4|178
+CP8|S12|40
+CP8|S13|125
+CP8|S9|60
+FC1|S10|50
+FC1|S11|32
+FC1|S12|59
+FC1|S15|82
+FC1|S4|104
+FC1|S9|65
+FC1|SEV1|77
+FC2|N10|25
+FC2|N11|67
+FC2|N4|75
+FC2|N5|18
+FC2|N6|44
+FC2|N7|100
+G1|MON|61
+G1|N1|180
+G1|PARK|101
+G1|S2|131
+G1|USTORE|137
+G2|G3|48
+G2|S8|85
+G2|S9|59
+G3|S12|74
+G3|S9|66
+G4|S12|148
+G4|S13|59
+G4|S14|96
+HC1|HERO|78
+HC1|N1|74
+HC1|N16|65
+HC1|N17|94
+HC1|N18|52
+HC1|N19|91
+HERO|N1|47
+HERO|N16|72
+HERO|N2|22
+HERO|N3|72
+HERO|N4|75
+MON|N1|125
+MON|N2|125
+MON|PARK|69
+N1|N2|47
+N1|PARK|92
+N10|N11|71
+N10|N5|42
+N10|N6|39
+N10|N9|148
+N10|POST|145
+N11|N12|77
+N11|N9|211
+N11|POST|128
+N12|N13|38
+N12|N14|74
+N12|N15|26
+N12|N17|83
+N12|POST|123
+N13|N14|39
+N13|N15|47
+N13|N17|97
+N13|N20|89
+N13|POST|144
+N14|N15|72
+N14|N17|105
+N14|N20|64
+N14|S14|140
+N15|N16|100
+N15|N17|58
+N16|N17|43
+N16|N18|65
+N17|N18|66
+N17|N20|81
+N18|N19|45
+N18|N20|67
+N19|N20|44
+N19|S15|68
+N19|SEV1|80
+N2|N3|64
+N2|N4|82
+N20|S14|150
+N20|S15|106
+N3|N4|52
+N3|N5|92
+N4|N5|61
+N5|N6|47
+N5|N7|91
+N6|N7|68
+N6|N8|119
+N6|N9|133
+N7|N8|65
+N7|N9|157
+N8|N9|149
+PARK|S1|75
+PARK|S2|66
+PARK|USTORE|64
+S1|S2|64
+S1|S3|54
+S1|S4|110
+S1|USTORE|54
+S10|S11|34
+S10|S4|73
+S10|S8|60
+S10|S9|56
+S11|S12|90
+S11|S15|71
+S11|S4|72
+S11|SEV1|59
+S12|S13|91
+S12|S14|165
+S13|S14|94
+S15|S4|97
+S15|SEV1|20
+S2|S3|74
+S2|USTORE|10
+S3|S5|83
+S3|USTORE|67
+S4|S5|72
+S4|SEV1|78
+S5|S6|48
+S5|S7|43
+S5|SEV2|60
+S6|S7|47
+S6|S8|83
+S6|SEV2|12
+S7|S8|43
+S7|SEV2|55
+S8|S9|48
+S8|SEV2|86
