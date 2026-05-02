@@ -20,6 +20,8 @@ CMakeCache.txt
 cmake_install.cmake
 Makefile
 
+Temp/
+
 # IDE / Editor
 .vscode/
 .idea/

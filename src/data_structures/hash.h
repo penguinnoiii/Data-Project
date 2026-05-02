@@ -1,8 +1,8 @@
 #ifndef HASH_H
 #define HASH_H
 
-#define HASH_SIZE 101
-#define MAX_NAME 50
+#define HASH_SIZE 257
+#define MAX_NAME 128
 
 struct HashEntry {
     char name[MAX_NAME];
